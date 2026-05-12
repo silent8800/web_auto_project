@@ -1,7 +1,15 @@
+# 虚拟环境
 .venv/
+
+# Python 缓存
 __pycache__/
+*.pyc
 .pytest_cache/
+
+# Allure 运行结果
 allure-results/
 allure-report/
-logs/
-*.pyc
+
+# 失败截图目录：保留目录，不上传截图文件
+screenshots/*
+!screenshots/.gitkeep
