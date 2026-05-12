@@ -22,20 +22,18 @@
 ## 三、项目结构
 
 ```text
-web_auto_test/
-├── common/
-│   └── base_page.py          # 页面公共操作封装
+web_auto_project/
 ├── config/
-│   └── config.py             # 项目配置文件
+│   └── config.py             # 项目配置文件，管理测试网站地址
 ├── pages/
 │   ├── login_page.py         # 登录页面封装
 │   └── product_page.py       # 商品页面封装
+├── screenshots/              # 测试失败截图目录
 ├── testcases/
-│   ├── test_login.py         # 登录相关测试用例
-│   └── test_cart.py          # 购物车相关测试用例
+│   └── test_login.py         # 登录相关测试用例
 ├── conftest.py               # Pytest 公共前置 fixture
-├── requirements.txt          # 项目依赖
 ├── README.md                 # 项目说明文档
+├── report.html               # pytest-html 测试报告
 └── .gitignore                # Git 忽略文件
 ```
 
@@ -47,8 +45,7 @@ web_auto_test/
 |---|---|---|
 | 登录模块 | 正确用户名和密码登录 | 是否成功进入商品列表页 |
 | 登录模块 | 错误用户名或密码登录 | 是否展示登录失败提示 |
-| 商品模块 | 商品加入购物车 | 购物车数量是否正确变化 |
-| 商品模块 | 商品移除购物车 | 商品是否成功从购物车移除 |
+| 商品模块 | 登录后进入商品列表页 | 商品页面是否正常展示 |
 
 ---
 
