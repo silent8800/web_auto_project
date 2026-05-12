@@ -23,42 +23,42 @@
 
 ```text
 web_auto_project/
+├── common/
+│   └── base_page.py          # 页面公共操作封装
 ├── config/
-│   └── config.py             # 项目配置文件，管理测试网站地址
+│   └── config.py             # 项目配置文件
 ├── pages/
-│   ├── login_page.py         # 登录页面封装
-│   └── product_page.py       # 商品页面封装
-├── screenshots/
-│   └── .gitkeep              # 失败截图目录占位文件
+│   ├── login_page.py         # 登录页面对象
+│   └── product_page.py       # 商品页面对象
 ├── testcases/
-│   └── test_login.py         # 登录相关测试用例
-├── conftest.py               # Pytest 公共前置 fixture
-├── requirements.txt          # 项目依赖文件
-├── report.html               # pytest-html 测试报告
-├── README.md                 # 项目说明文档
-└── .gitignore                # Git 忽略文件
+│   └── test_login.py         # 登录模块测试用例
+├── conftest.py               # Pytest 公共前置后置
+├── screenshots/              # 失败截图目录
+├── report.html               # HTML 测试报告
+└── README.md                 # 项目说明文档
 ```
 
 ---
 
 ## 四、主要测试场景
 
-| 模块 | 测试场景 | 验证点 |
-|---|---|---|
-| 登录模块 | 正确用户名和密码登录 | 是否成功进入商品列表页 |
-| 登录模块 | 错误用户名或密码登录 | 是否展示登录失败提示 |
-| 商品模块 | 登录后访问商品页面 | 商品页面是否正常展示 |
-
+- 正常登录校验
+- 错误用户名/密码登录校验
+- 空用户名登录校验
+- 空密码登录校验
+- 锁定用户登录校验
+- 登录成功后商品页面标题校验
+- 登录失败错误提示信息校验
 ---
 
 ## 五、项目特点
 
-- 使用 Selenium 模拟用户在浏览器中的真实操作
-- 使用 Pytest 管理和执行自动化测试用例
-- 使用 Page Object 思想封装页面元素和页面操作
-- 使用 `conftest.py` 管理浏览器启动和关闭等公共前置
-- 支持用例失败自动截图，并保存到 `screenshots/` 目录
-- 支持生成 pytest-html 和 Allure 测试报告
+- 使用 Page Object 模式拆分页面元素和业务操作，提高代码可维护性
+- 封装 BasePage 基础类，统一管理点击、输入、获取文本等公共方法
+- 使用 Pytest fixture 管理浏览器启动、关闭和失败截图
+- 使用 pytest.mark.parametrize 实现登录模块数据驱动测试
+- 集成 pytest-html 和 Allure 测试报告，便于查看测试结果
+- 使用 Git 进行版本管理，并上传至 GitHub 进行项目展示
 
 ---
 
