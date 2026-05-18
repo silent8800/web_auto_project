@@ -18,20 +18,33 @@ class BasePage:
 
     def find_element(self, locator, timeout=10):
         """
-        查找单个元素
+        查找单个可见元素
 
         locator：元素定位方式，例如 (By.ID, "user-name")
         timeout：最长等待时间，默认 10 秒
         """
+        # 等待元素可见，而不是只等待元素存在于 DOM 中
         return WebDriverWait(self.driver, timeout).until(
-            EC.presence_of_element_located(locator)
+            EC.visibility_of_element_located(locator)
+        )
+
+    def find_clickable_element(self, locator, timeout=10):
+        """
+        查找单个可点击元素
+
+        适用于点击按钮、链接等需要交互的元素
+        """
+        # 等待元素既可见又可点击，减少页面未加载完成导致的点击失败
+        return WebDriverWait(self.driver, timeout).until(
+            EC.element_to_be_clickable(locator)
         )
 
     def click(self, locator):
         """
         点击元素
         """
-        self.find_element(locator).click()
+        element = self.find_clickable_element(locator)
+        element.click()
 
     def input_text(self, locator, text):
         """
@@ -39,7 +52,8 @@ class BasePage:
 
         先清空输入框，再输入内容
         """
-        element = self.find_element(locator)
+        # 输入框需要可交互后再执行 clear 和 send_keys
+        element = self.find_clickable_element(locator)
         element.clear()
         element.send_keys(text)
 
@@ -47,6 +61,7 @@ class BasePage:
         """
         获取元素文本
         """
+        # 获取文本前等待元素可见，避免拿到空文本或隐藏元素文本
         return self.find_element(locator).text
 
     def get_title(self):
